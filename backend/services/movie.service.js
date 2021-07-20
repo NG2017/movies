@@ -68,7 +68,7 @@ exports.addReviewToMovie = async (movie_id, reviewObj) => {
 // --- reviews
 exports.findReviewByUser = async (user) => { 
   let nameRegex = new RegExp(user, "i")
-  let allMovie = await Movie.find({}).populate('reviews.user', '-_id name photo');
+  let allMovie = await Movie.find({}).populate('reviews.user', 'name photo');
   let reviewsArray = [];
   allMovie.map(movie => {  
     movie.reviews.map(review => {
@@ -88,7 +88,7 @@ exports.findReviewByUser = async (user) => {
 
 exports.findReviewByTitle = async (movie) => { 
   let movieRegex = new RegExp(movie, "i")
-  let allMovie = await Movie.find({}).populate('reviews.user', '-_id name photo');
+  let allMovie = await Movie.find({}).populate('reviews.user', 'name photo');
   let reviewsArray = [];
   allMovie.map(movie => {  
     movie.reviews.map(review => {
