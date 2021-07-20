@@ -5,7 +5,6 @@ const movieService = require("../services/movie.service");
 const movieController = require("../controllers/movie.controller");
 //----
 
-let pageNumber = 1;
 let maxPageNumber = 6;
 
 const fetchAndSave = (pageNumber = 1) =>{
@@ -27,22 +26,16 @@ const fetchAndSave = (pageNumber = 1) =>{
 }
 
 
-
 exports.createDatabase = async () => {
 
     const dbFilled = await movieController.findMaxHundred();
-    console.log(`dbFilled---`, dbFilled);
-
+    
     if(dbFilled) {
         console.log("--- DB is already filled. ---");
     } else {
-
         for (let i = 1; i <= maxPageNumber; i++) {
             fetchAndSave(i)
         }
-
     }
-
-
 
 };

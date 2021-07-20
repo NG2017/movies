@@ -23,7 +23,7 @@ exports.findOrCreateMovie = async (data) => {
 };
 
 exports.findMovieById = async (id) => {
-  let existingMovie = await Movie.findOne({ movie_id: id }).populate('reviews.user');
+  let existingMovie = await Movie.findOne({ movie_id: id }).populate('reviews.user', '-_id name photo');
   return existingMovie;
 };
 
