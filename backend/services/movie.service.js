@@ -63,5 +63,45 @@ exports.addReviewToMovie = async (movie_id, reviewObj) => {
   } else {
     return false;
   }
-
 }
+
+// --- reviews
+exports.findReviewByUser = async (user) => { 
+  let nameRegex = new RegExp(user, "i")
+  let allMovie = await Movie.find({}).populate('reviews.user', '-_id name photo');
+  let reviewsArray = [];
+  allMovie.map(movie => {  
+    movie.reviews.map(review => {
+        if (review.user) {
+          if(review.user.name.match(nameRegex)) {
+          let newReview = JSON.parse(JSON.stringify(review));
+          newReview.movie_id = movie.movie_id;
+          newReview.movie_title = movie.title;
+          newReview.backdrop_path = movie.backdrop_path;       
+          reviewsArray.push(newReview)
+        }
+      }
+    })
+  });
+  return reviewsArray;
+};
+
+exports.findReviewByTitle = async (movie) => { 
+  let movieRegex = new RegExp(movie, "i")
+  let allMovie = await Movie.find({}).populate('reviews.user', '-_id name photo');
+  let reviewsArray = [];
+  allMovie.map(movie => {  
+    movie.reviews.map(review => {
+        if (review.user) {
+          if(movie.title.match(movieRegex)) {
+          let newReview = JSON.parse(JSON.stringify(review));
+          newReview.movie_id = movie.movie_id;
+          newReview.movie_title = movie.title;
+          newReview.backdrop_path = movie.backdrop_path;       
+          reviewsArray.push(newReview)
+        }
+      }
+    })
+  });
+  return reviewsArray;
+};

@@ -9,6 +9,9 @@ router.get("/movie/find-by-id/:id", movieController.findById);
 router.get("/movie/find-by-title/:title", movieController.findByTitle);
 router.get("/movie/page/:page", movieController.findByPageNumber);
 
+router.get("/review/user/:nameofuser", movieController.findReviewByUser);
+router.get("/review/title/:movie_title", movieController.findReviewByTitle);
+
 //ez post legyen ám!!
 router.post("/movie/add-review", movieController.addNewReview);
 

@@ -36,6 +36,17 @@ exports.addNewReview = async (req, res) => {
 
   const result = await movieService.addReviewToMovie(movieId, reviewObj);
   result ? res.json({"info": "review added"}) : res.json({"error": "something went wrong.."})
-
-
 }
+
+// --- reviews
+exports.findReviewByUser = async (req, res) => {
+  let nameOfUser = req.params.nameofuser;
+  let reviews = await movieService.findReviewByUser(nameOfUser);  
+  res.json(reviews);
+};
+
+exports.findReviewByTitle = async (req, res) => {
+  let title = req.params.movie_title;
+  let reviews = await movieService.findReviewByTitle(title);  
+  res.json(reviews);
+};
